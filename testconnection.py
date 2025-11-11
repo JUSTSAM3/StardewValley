@@ -1,58 +1,83 @@
 import psycopg2
-from psycopg2 import OperationalError
+from psycopg2 import OperationalError, DatabaseError
 
 # --- Configuración de la Conexión ---
 CONFIG = {
     'user': 'postgres',       
     'password': 'sistemas2024',   
-    'host': '192.168.56.101',          
-    'port': '5432'                  
-
+    'host': '192.168.56.101',           
+    'port': '5432',                 
+    'dbname': 'stardew'             
 }
 
-def test_postgresql_server_connection(config):
+def list_stardew_tables(config):
     """
-    Intenta establecer una conexión al servidor PostgreSQL 
-    usando la configuración proporcionada y reporta el resultado.
+    Intenta conectar a la base de datos 'stardew' y lista todas sus tablas.
     """
-    conn = None  
+    conn = None
+    cursor = None
+    
+    db_name = config['dbname'] 
+    
     try:
-        # 1. Intentar la Conexión
-        print(f"Intentando conectar al servidor PostgreSQL en host '{config['host']}'...")
+        print(f"Intentando conectar a la base de datos '{db_name}'...")
         
-        # psycopg2 usa 'password' y 'port' directamente en los argumentos de la función
         conn = psycopg2.connect(
             user=config['user'], 
             password=config['password'], 
             host=config['host'], 
-            port=config['port']
+            port=config['port'],
+            dbname=db_name
         )
         
-        # 2. Verificar si la conexión fue exitosa
-        print("\n✅ ¡Conexión al servidor PostgreSQL exitosa!")
-        print("El servidor está activo y tus credenciales son válidas.")
+        print(f"\n✅ ¡Conexión a la DB '{db_name}' exitosa!")
         
-    # 3. Manejar Errores Específicos de PostgreSQL
+        cursor = conn.cursor()
+        
+        QUERY = """
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public'
+            AND table_type = 'BASE TABLE'
+            ORDER BY table_name;
+        """
+        
+        cursor.execute(QUERY)
+        
+        tables = cursor.fetchall()
+        
+        print(f"\n **Tablas Encontradas en la Base de Datos '{db_name}':**")
+        if tables:
+            for (table_name,) in tables:
+                print(f"* {table_name}")
+        else:
+            print(f"No se encontraron tablas en el esquema 'public' de la base de datos '{db_name}'.")
+
     except OperationalError as e:
-        print("\n❌ ¡Error de Conexión a PostgreSQL!")
+        print(f"\n ¡Error de Conexión a PostgreSQL!")
         error_message = str(e)
         
-        if "fe_sendauth: no password supplied" in error_message or "password authentication failed" in error_message:
-            print("  - Error de autenticación. Verifica tu usuario y contraseña.")
+        if "password authentication failed" in error_message:
+            print("  - Error de autenticación. Verifica usuario y contraseña.")
         elif "could not connect to server" in error_message:
-            print(f"  - No se pudo conectar al host '{config['host']}' o puerto '{config['port']}'. Asegúrate de que PostgreSQL esté corriendo y la configuración de red sea correcta.")
+            print(f"  - No se pudo conectar al servidor. Host o Puerto incorrecto.")
+        elif f'database "{db_name}" does not exist' in error_message:
+            print(f"  - ¡La base de datos '{db_name}' no existe!")
+            print("    Asegúrate de que la base de datos esté creada.")
         else:
-            print(f"  - Error operacional desconocido: {error_message}")
+            print(f"  - Error Operacional: {error_message}")
             
-    # 4. Asegurar el Cierre de la Conexión
+    except DatabaseError as e:
+        print(f"\n ¡Error al ejecutar la consulta SQL! {e}")
+            
     finally:
-        if conn is not None:
+        if cursor:
+            cursor.close()
+        if conn:
             print("\nCerrando la conexión a PostgreSQL...")
             conn.close()
             print("Conexión cerrada.")
 
 if __name__ == '__main__':
 
-    print("-----------------------------------------------")
-    
-    test_postgresql_server_connection(CONFIG)
+    list_stardew_tables(CONFIG)
