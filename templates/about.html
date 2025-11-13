@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conócenos – Granja Stardew Valley</title>
+  <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body class="about-page">
+  <header class="top-bar">
+    <h1 class="top-bar-title">Granja Stardew Valley</h1>
+    <nav>
+      <a href="{{ url_for('login') }}" class="link">Volver al inicio de sesión</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <section class="card">
+      <h2>Quiénes somos</h2>
+      <p>
+        La Granja Stardew Valley es un proyecto académico que simula la gestión de una granja
+        moderna: animales, cultivos, recursos, productos y ventas se administran a través de una
+        base de datos relacional.
+      </p>
+      <p>
+        El objetivo es aplicar conceptos de modelado, normalización, consultas y desarrollo web
+        para construir un panel de administración que permita visualizar y analizar la información
+        de la granja.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Qué encontrarás en el panel de administración</h2>
+      <ul>
+        <li>Visualización de las tablas principales de la base de datos.</li>
+        <li>Operaciones básicas de administración (CRUD simulado).</li>
+        <li>Indicadores y estadísticas sobre producción y ventas.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+
+</html>

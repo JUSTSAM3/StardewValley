@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de administración – Granja Stardew Valley</title>
+  <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body class="admin-page">
+  <header class="top-bar">
+    <h1 class="top-bar-title">Panel de administración – Granja Stardew Valley</h1>
+    <button id="logoutBtn" class="btn danger-btn">Cerrar sesión</button>
+  </header>
+
+  <main class="content admin-layout">
+    <nav class="side-menu">
+      <ul>
+        <li><button class="menu-btn active" data-section="resumen">Resumen de la granja</button></li>
+        <li><button class="menu-btn" data-section="tablas">Tablas y CRUD (demo)</button></li>
+        <li><button class="menu-btn" data-section="dashboard">Dashboard (demo)</button></li>
+      </ul>
+    </nav>
+
+    <section class="admin-sections">
+      <section id="section-resumen" class="card admin-section visible">
+        <h2>Resumen de la granja</h2>
+        <p>
+          Bienvenido al panel de administración. Aquí más adelante podrás ver un resumen general
+          de animales, cultivos, recursos disponibles y ventas recientes.
+        </p>
+        <div class="cards-grid">
+          <article class="mini-card">
+            <h3>Animales</h3>
+            <p>Próximamente: total de animales por especie.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Cultivos</h3>
+            <p>Próximamente: cultivos activos y fecha de siembra.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Recursos</h3>
+            <p>Próximamente: stock de recursos críticos.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Ventas</h3>
+            <p>Próximamente: resumen de ventas del mes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="section-tablas" class="card admin-section">
+        <h2>Tablas y CRUD (demo)</h2>
+        <p>
+          Aquí se mostrarán las tablas de la base de datos y las operaciones básicas de
+          administración. Por ahora se muestra un ejemplo con la tabla de <strong>Animales</strong>
+          usando datos quemados.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Especie</th>
+              <th>Sexo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Vaca 01</td>
+              <td>Vaca</td>
+              <td>Hembra</td>
+              <td>Activa</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Gallina 01</td>
+              <td>Gallina</td>
+              <td>Hembra</td>
+              <td>Activa</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Cerdo 01</td>
+              <td>Cerdo</td>
+              <td>Macho</td>
+              <td>En engorde</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="crud-actions">
+          <button class="btn primary-btn">Crear (demo)</button>
+          <button class="btn secondary-btn">Editar (demo)</button>
+          <button class="btn danger-btn">Eliminar (demo)</button>
+        </div>
+      </section>
+
+      <section id="section-dashboard" class="card admin-section">
+        <h2>Dashboard (demo)</h2>
+        <p>
+          En esta sección se mostrarán gráficas y métricas calculadas a partir de la base de datos.
+          Por ahora solo es un espacio reservado para el desarrollo posterior.
+        </p>
+        <div class="cards-grid">
+          <article class="mini-card">
+            <h3>Producción promedio</h3>
+            <p>Próximamente: producción diaria por tipo de producto.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Ventas mensuales</h3>
+            <p>Próximamente: gráfico de ventas por mes.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Consumo de recursos</h3>
+            <p>Próximamente: consumo de recursos por cultivo/animal.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../static/admin.js"></script>
+</body>
+
+</html>

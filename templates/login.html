@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión – Granja Stardew Valley</title>
+  <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body class="login-page">
+  <main class="auth-container">
+    <section class="auth-card">
+      <h1 class="auth-title">Panel de administración</h1>
+      <p class="auth-subtitle">Inicia sesión para administrar la Granja Stardew Valley.</p>
+
+      <form id="loginForm" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="username">Usuario</label>
+          <input type="text" id="username" name="username" required autocomplete="username"
+            placeholder="Ej: admin" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password"
+            placeholder="Ej: admin" />
+        </div>
+
+        <button type="submit" class="btn primary-btn">Ingresar</button>
+
+        <p id="loginError" class="error-message" aria-live="polite"></p>
+      </form>
+
+      <hr class="divider" />
+
+      <button type="button" class="btn secondary-btn" onclick="window.location.href='{{ url_for('about') }}'">
+        Conócenos
+      </button>
+
+    </section>
+  </main>
+
+  <script src="../static/login.js"></script>
+</body>
+
+</html>

@@ -12,9 +12,17 @@ def create_app():
     initialize_tables()
 
     #Página principal
-    @app.route("/")
-    def home():
-        return render_template("home.html")
+    @app.route('/')
+    def login():
+        return render_template("login.html")
+    
+    @app.route('/about')
+    def about():
+        return render_template("about.html")
+    
+    @app.route('/admin')
+    def admin():
+        return render_template("admin.html")
 
     return app
 
