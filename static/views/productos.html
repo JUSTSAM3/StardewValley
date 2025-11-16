@@ -1,0 +1,18 @@
+<div class="card">
+  <h2>Productos</h2>
+  <p>Catálogo de productos vendidos o generados.</p>
+
+  <table class="data-table" id="tabla-productos">
+    <thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th>Acciones</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:1rem;">Agregar / Editar Producto</h3>
+  <form id="form-producto" class="crud-form">
+    <div class="form-group"><label>Identificación</label><input name="identificacion" required/></div>
+    <div class="form-group"><label>Nombre</label><input name="nombre" required/></div>
+    <div class="form-group"><label>Tipo</label><input name="tipo" required/></div>
+    <div class="form-group"><label>Precio</label><input type="number" step="0.01" name="precio" required/></div>
+    <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Guardar</button>
+  </form>
+</div>

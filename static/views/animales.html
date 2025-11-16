@@ -1,0 +1,27 @@
+<div class="card">
+    <h2>Gestión de Animales</h2>
+    <p>Administra los animales registrados en la granja.</p>
+
+    <table class="data-table" id="tabla-animales">
+        <thead>
+            <tr>
+                <th>ID</th><th>Nombre</th><th>Especie</th><th>Raza</th><th>Sexo</th><th>Estado</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">Registrar / Editar Animal</h3>
+    <form id="form-animal" class="crud-form">
+        <div class="form-group"><label>Nombre</label><input type="text" name="nombre" required/></div>
+        <div class="form-group"><label>Especie</label><input type="text" name="especie" required/></div>
+        <div class="form-group"><label>Raza</label><input type="text" name="raza"/></div>
+        <div class="form-group"><label>Sexo</label>
+            <select name="sexo" required><option value="">-- Seleccione --</option><option value="MACHO">Macho</option><option value="HEMBRA">Hembra</option></select>
+        </div>
+        <div class="form-group"><label>Estado</label>
+            <select name="estado" required><option value="">-- Seleccione --</option><option value="VIVO">Vivo</option><option value="MUERTO">Muerto</option><option value="VENDIDO">Vendido</option></select>
+        </div>
+        <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Guardar</button>
+    </form>
+</div>

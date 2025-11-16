@@ -1,0 +1,38 @@
+<div class="card">
+  <h2>Ventas</h2>
+  <p>Registrar ventas y ver histórico.</p>
+
+  <table class="data-table" id="tabla-ventas">
+    <thead><tr><th>ID</th><th>Documento cliente</th><th>Nombre cliente</th><th>Fecha</th><th>Total</th><th>Acciones</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:1rem;">Registrar venta</h3>
+  <form id="form-venta" onsubmit="submitVenta(event)">
+    <div class="form-group">
+      <label>Cliente</label>
+      <select id="venta-cliente" required></select>
+    </div>
+
+    <div style="display:flex; gap:0.5rem;">
+      <div class="form-group" style="flex:2;">
+        <label>Producto</label>
+        <select id="venta-producto"></select>
+      </div>
+      <div class="form-group" style="flex:1;">
+        <label>Cantidad</label>
+        <input id="venta-cantidad" type="number" step="0.01"/>
+      </div>
+      <div style="align-self:flex-end;">
+        <button type="button" class="btn secondary-btn" onclick="addVentaItem()">Agregar</button>
+      </div>
+    </div>
+
+    <table class="data-table" style="margin-top:0.5rem;">
+      <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio unit</th><th>Acción</th></tr></thead>
+      <tbody id="venta-items-body"></tbody>
+    </table>
+
+    <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Crear venta</button>
+  </form>
+</div>

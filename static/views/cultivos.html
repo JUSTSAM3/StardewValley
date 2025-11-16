@@ -1,0 +1,25 @@
+<div class="card">
+  <h2>Gestión de Cultivos</h2>
+  <p>Administra siembras y estados de cultivos.</p>
+
+  <table class="data-table" id="tabla-cultivos">
+    <thead>
+      <tr>
+        <th>ID</th><th>Nombre</th><th>Tipo</th><th>Época</th><th>Estado</th><th>Fecha siembra</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:1rem;">Registrar / Editar Cultivo</h3>
+  <form id="form-cultivo" class="crud-form">
+    <div class="form-group"><label>Nombre</label><input name="nombre" required/></div>
+    <div class="form-group"><label>Tipo</label><input name="tipo" required/></div>
+    <div class="form-group"><label>Época</label><input name="epoca"/></div>
+    <div class="form-group"><label>Estado</label>
+      <select name="estado" required><option value="">--</option><option value="SEMILLA">Semilla</option><option value="CRECIMIENTO">Crecimiento</option><option value="COSECHADO">Cosechado</option></select>
+    </div>
+    <div class="form-group"><label>Fecha siembra</label><input type="date" name="fecha_siembra"/></div>
+    <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Guardar</button>
+  </form>
+</div>

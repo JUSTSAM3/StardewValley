@@ -1,0 +1,19 @@
+<div class="card">
+  <h2>Empleados</h2>
+  <p>Administra empleados.</p>
+
+  <table class="data-table" id="tabla-empleados">
+    <thead><tr><th>Identificación</th><th>Nombre</th><th>Cargo</th><th>Fecha ingreso</th><th>Sueldo</th><th>Acciones</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:1rem;">Agregar / Editar Empleado</h3>
+  <form id="form-empleado" class="crud-form">
+    <div class="form-group"><label>Identificación</label><input name="identificacion" required/></div>
+    <div class="form-group"><label>Nombre</label><input name="nombre" required/></div>
+    <div class="form-group"><label>Cargo</label><input name="cargo" required/></div>
+    <div class="form-group"><label>Fecha ingreso</label><input type="date" name="fecha_ingreso" required/></div>
+    <div class="form-group"><label>Sueldo</label><input type="number" step="0.01" name="sueldo" required/></div>
+    <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Guardar</button>
+  </form>
+</div>

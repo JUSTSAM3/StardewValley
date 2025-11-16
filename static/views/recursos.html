@@ -1,0 +1,17 @@
+<div class="card">
+  <h2>Recursos</h2>
+  <p>Insumos y stocks.</p>
+
+  <table class="data-table" id="tabla-recursos">
+    <thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th><th>Stock</th><th>Acciones</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:1rem;">Agregar / Editar Recurso</h3>
+  <form id="form-recurso" class="crud-form">
+    <div class="form-group"><label>Nombre</label><input name="nombre" required/></div>
+    <div class="form-group"><label>Tipo</label><input name="tipo_recurso" required/></div>
+    <div class="form-group"><label>Stock</label><input type="number" step="0.01" name="stock" required/></div>
+    <button type="submit" class="btn primary-btn" style="margin-top:1rem;">Guardar</button>
+  </form>
+</div>
