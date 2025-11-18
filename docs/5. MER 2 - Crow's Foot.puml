@@ -1,0 +1,174 @@
+@startuml
+
+!define CROWSFOOT
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+entity "EMPLEADO" as empleado {
+    * identificacion : varchar(30)
+    --
+    nombre : varchar(100)
+    cargo : varchar(50)
+    fecha_ingreso : date
+    sueldo : numeric(12,2)
+}
+
+entity "MAQUINARIA" as maquinaria {
+    * id : serial
+    --
+    nombre : varchar(100)
+    tipo : varchar(50)
+    modelo : varchar(50)
+    estado : varchar(30)
+}
+
+entity "ANIMAL" as animal {
+    * id : serial
+    --
+    nombre : varchar(100)
+    especie : varchar(50)
+    raza : varchar(50)
+    sexo : varchar(10)
+    estado : varchar(30)
+}
+
+entity "CULTIVO" as cultivo {
+    * id : serial
+    --
+    nombre : varchar(100)
+    tipo : varchar(50)
+    epoca : varchar(50)
+    estado : varchar(30)
+    fecha_siembra : date
+}
+
+entity "RECURSOS" as recursos {
+    * id : serial
+    --
+    nombre : varchar(100)
+    tipo_recurso : varchar(50)
+    stock : numeric(10,2)
+}
+
+entity "PRODUCTO" as producto {
+    * identificacion : varchar(30)
+    --
+    nombre : varchar(100)
+    tipo : varchar(50)
+    precio : numeric(12,2)
+}
+
+entity "CLIENTE" as cliente {
+    * documento : varchar(30)
+    --
+    nombre : varchar(100)
+    direccion : varchar(200)
+    telefono : varchar(30)
+    email : varchar(100)
+}
+
+entity "VENTA" as venta {
+    * id : serial
+    --
+    documento_cliente : varchar(30)
+    fecha : timestamp
+    total : numeric(12,2)
+}
+
+entity "DETALLE VENTA" as venta_detalle {
+    * id : serial
+    --
+    id_venta : int
+    identificacion_producto : varchar(30)
+    cantidad : numeric(10,2)
+    precio_unit : numeric(12,2)
+}
+
+
+entity "EMPLEADO_MAQUINARIA" as em_ma {
+    * identificacion : varchar(30)
+    * id_maquinaria : int
+    --
+    asignacion_fecha : date
+}
+
+entity "EMPLEADO_ANIMAL" as em_an {
+    * identificacion : varchar(30)
+    * id_animal : int
+    --
+    asignacion_fecha : date
+}
+
+entity "EMPLEADO_CULTIVO" as em_cu {
+    * identificacion : varchar(30)
+    * id_cultivo : int
+    --
+    asignacion_fecha : date
+}
+
+entity "CONSUMO_ANIMAL" as cons_animal {
+    * id : serial
+    --
+    id_animal : int
+    id_recurso : int
+    destino : varchar(100)
+    cantidad : numeric(10,2)
+    observacion : text
+    fecha : date
+}
+
+entity "CONSUMO_CULTIVO" as cons_cultivo {
+    * id : serial
+    --
+    id_cultivo : int
+    id_recurso : int
+    destino : varchar(100)
+    cantidad : numeric(10,2)
+    observacion : text
+    fecha : date
+}
+
+entity "GENERA_PRODUCTO_ANIMAL" as gen_pa {
+    * id : serial
+    --
+    id_animal : int
+    identificacion_producto : varchar(30)
+    cantidad : numeric(10,2)
+    fecha : date
+}
+
+entity "GENERA_PRODUCTO_CULTIVO" as gen_pc {
+    * id : serial
+    --
+    id_cultivo : int
+    identificacion_producto : varchar(30)
+    cantidad : numeric(10,2)
+    fecha : date
+}
+
+
+empleado ||--o{ em_ma : asigna >
+maquinaria ||--o{ em_ma : es usada por
+
+empleado ||--o{ em_an : cuida >
+animal ||--o{ em_an
+
+empleado ||--o{ em_cu : trabaja >
+cultivo ||--o{ em_cu
+
+animal ||--o{ cons_animal
+recursos ||--o{ cons_animal
+
+cultivo ||--o{ cons_cultivo
+recursos ||--o{ cons_cultivo
+
+animal ||--o{ gen_pa
+producto ||--o{ gen_pa
+
+cultivo ||--o{ gen_pc
+producto ||--o{ gen_pc
+
+cliente ||--o{ venta
+venta ||--o{ venta_detalle
+producto ||--o{ venta_detalle
+
+@enduml

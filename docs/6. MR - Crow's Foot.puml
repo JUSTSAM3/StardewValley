@@ -1,0 +1,154 @@
+@startuml
+
+class empleado {
+    + identificacion : VARCHAR(30) <<PK>>
+    nombre : VARCHAR(100)
+    cargo : VARCHAR(50)
+    fecha_ingreso : DATE
+    sueldo : NUMERIC(12,2)
+}
+
+class maquinaria {
+    + id : SERIAL <<PK>>
+    nombre : VARCHAR(100)
+    tipo : VARCHAR(50)
+    modelo : VARCHAR(50)
+    estado : VARCHAR(30)
+}
+
+class empleado_maquinaria {
+    + identificacion : VARCHAR(30) <<PK, FK>>
+    + id_maquinaria : INT <<PK, FK>>
+    asignacion_fecha : DATE
+}
+
+class animal {
+    + id : SERIAL <<PK>>
+    nombre : VARCHAR(100)
+    especie : VARCHAR(50)
+    raza : VARCHAR(50)
+    sexo : VARCHAR(10)
+    estado : VARCHAR(30)
+}
+
+class empleado_animal {
+    + identificacion : VARCHAR(30) <<PK, FK>>
+    + id_animal : INT <<PK, FK>>
+    asignacion_fecha : DATE
+}
+
+class cultivo {
+    + id : SERIAL <<PK>>
+    nombre : VARCHAR(100)
+    tipo : VARCHAR(50)
+    epoca : VARCHAR(50)
+    estado : VARCHAR(30)
+    fecha_siembra : DATE
+}
+
+class empleado_cultivo {
+    + identificacion : VARCHAR(30) <<PK, FK>>
+    + id_cultivo : INT <<PK, FK>>
+    asignacion_fecha : DATE
+}
+
+class recursos {
+    + id : SERIAL <<PK>>
+    nombre : VARCHAR(100)
+    tipo_recurso : VARCHAR(50)
+    stock : NUMERIC(10,2)
+}
+
+class consumo_animal {
+    + id : SERIAL <<PK>>
+    id_animal : INT <<FK>>
+    id_recurso : INT <<FK>>
+    destino : VARCHAR(100)
+    cantidad : NUMERIC(10,2)
+    observacion : TEXT
+    fecha : DATE
+}
+
+class consumo_cultivo {
+    + id : SERIAL <<PK>>
+    id_cultivo : INT <<FK>>
+    id_recurso : INT <<FK>>
+    destino : VARCHAR(100)
+    cantidad : NUMERIC(10,2)
+    observacion : TEXT
+    fecha : DATE
+}
+
+class producto {
+    + identificacion : VARCHAR(30) <<PK>>
+    nombre : VARCHAR(100)
+    tipo : VARCHAR(50)
+    precio : NUMERIC(12,2)
+}
+
+class genera_producto_animal {
+    + id : SERIAL <<PK>>
+    id_animal : INT <<FK>>
+    identificacion_producto : VARCHAR(30) <<FK>>
+    cantidad : NUMERIC(10,2)
+    fecha : DATE
+}
+
+class genera_producto_cultivo {
+    + id : SERIAL <<PK>>
+    id_cultivo : INT <<FK>>
+    identificacion_producto : VARCHAR(30) <<FK>>
+    cantidad : NUMERIC(10,2)
+    fecha : DATE
+}
+
+class cliente {
+    + documento : VARCHAR(30) <<PK>>
+    nombre : VARCHAR(100)
+    direccion : VARCHAR(200)
+    telefono : VARCHAR(30)
+    email : VARCHAR(100)
+}
+
+class venta {
+    + id : SERIAL <<PK>>
+    documento_cliente : VARCHAR(30) <<FK>>
+    fecha : TIMESTAMP
+    total : NUMERIC(12,2)
+}
+
+class venta_detalle {
+    + id : SERIAL <<PK>>
+    id_venta : INT <<FK>>
+    identificacion_producto : VARCHAR(30) <<FK>>
+    cantidad : NUMERIC(10,2)
+    precio_unit : NUMERIC(12,2)
+}
+
+
+empleado_maquinaria --> empleado
+empleado_maquinaria --> maquinaria
+
+empleado_animal --> empleado
+empleado_animal --> animal
+
+empleado_cultivo --> empleado
+empleado_cultivo --> cultivo
+
+consumo_animal --> animal
+consumo_animal --> recursos
+
+consumo_cultivo --> cultivo
+consumo_cultivo --> recursos
+
+genera_producto_animal --> animal
+genera_producto_animal --> producto
+
+genera_producto_cultivo --> cultivo
+genera_producto_cultivo --> producto
+
+venta --> cliente
+venta_detalle --> venta
+venta_detalle --> producto
+
+@enduml
