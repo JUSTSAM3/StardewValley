@@ -100,31 +100,6 @@ venv\Scripts\activate       Windows
 pip install -r requirements.txt
 ```
 
-
-
- 🗄️ Configuración de la Base de Datos (PostgreSQL)
-
- 1️⃣ Crear base de datos
-
-```bash
-sudo -u postgres createdb stardew
-```
-
- 2️⃣ Crear usuario (si aplica)
-
-```sql
-CREATE USER stardew_admin WITH PASSWORD 'admin123';
-ALTER DATABASE stardew OWNER TO stardew_admin;
-```
-
- 3️⃣ Importar el esquema
-
-```bash
-psql -U stardew_admin -d stardew -f schema.sql
-```
-
-
-
  🚀 Ejecutar la Aplicación Flask
 
 ```bash
