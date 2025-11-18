@@ -1,16 +1,3 @@
-READ ME para repositorio de GitHub del proyecto Stardew Valley – Sistema de Gestión de Granja (Bases de Datos 1).
-
-Incluye:
-✔ Descripción del proyecto
-✔ Objetivos
-✔ Tecnologías utilizadas
-✔ Estructura del repositorio
-✔ Instalación
-✔ Ejecución del frontend Flask
-✔ Ejecución de la base de datos (PostgreSQL)
-✔ Créditos y documentación entregable
-
-
  ⭐ Stardew Valley – Sistema de Gestión de Granja
  Proyecto Bases de Datos 1 – Universidad El Bosque
  Autor: Jonathan Barrera Fernández 
