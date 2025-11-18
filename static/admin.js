@@ -1,3 +1,4 @@
+
 // CAMBIO DE SECCIONES
 document.querySelectorAll(".menu-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -62,14 +63,14 @@ async function loadSection(section) {
 
 // UTILIDADES
 function showError(section, msg) {
-    const box = document.querySelector(#section-${section} .section-content);
-    if (box) box.innerHTML = <p style="color:red">${msg}</p>;
+    const box = document.querySelector(`#section-${section} .section-content`);
+    if (box) box.innerHTML = `<p style="color:red">${msg}</p>`;
 }
 
 // Small loading helper to display while fetching data
 function showLoading(section) {
-    const box = document.querySelector(#section-${section} .section-content);
-    if (box) box.innerHTML = <div class="loading" style="padding:12px; color:#666">Cargando...</div>;
+    const box = document.querySelector(`#section-${section} .section-content`);
+    if (box) box.innerHTML = `<div class="loading" style="padding:12px; color:#666">Cargando...</div>`;
 }
 
 // Modal inline error 
@@ -135,33 +136,33 @@ function closeModal(modalId) {
 }
 
 function fillTable(section, headers, rows) {
-    const box = document.querySelector(#section-${section} .section-content);
+    const box = document.querySelector(`#section-${section} .section-content`);
     if (!box) return;
     // Build table HTML (actions column will contain buttons with data-attrs)
     let html = "<table class='data-table'><thead><tr>";
-    headers.forEach(h => html += <th>${h}</th>);
+    headers.forEach(h => html += `<th>${h}</th>`);
     html += "<th>Acciones</th></tr></thead><tbody>";
 
     if (!rows || rows.length === 0) {
-        html += <tr><td colspan="${headers.length + 1}">Sin datos</td></tr>;
+        html += `<tr><td colspan="${headers.length + 1}">Sin datos</td></tr>`;
     } else {
         rows.forEach((r, idx) => {
             html += "<tr>";
             headers.forEach(h => {
                 const val = r[h] == null ? '' : r[h];
-                html += <td>${val}</td>;
+                html += `<td>${val}</td>`;
             });
 
             // Use data attributes to avoid inline JS escaping issues
             const idVal = r[headers[0]];
             const dataJson = encodeURIComponent(JSON.stringify(r));
             // Add Assign button for sections that support assignments
-            let actionsHtml = <button class="btn-edit" data-section="${section}" data-json="${dataJson}">Editar</button>;
+            let actionsHtml = `<button class="btn-edit" data-section="${section}" data-json="${dataJson}">Editar</button>`;
             if (section === 'animales' || section === 'maquinaria' || section === 'cultivos') {
                 actionsHtml += ` <button class="btn-assign" data-section="${section}" data-id="${idVal}">Asignar</button>`;
             }
             actionsHtml += ` <button class="btn-delete" data-section="${section}" data-id="${idVal}">Eliminar</button>`;
-            html += \n<td>\n  ${actionsHtml}\n</td>\n;
+            html += `\n<td>\n  ${actionsHtml}\n</td>\n`;
 
             html += "</tr>";
         });
@@ -176,7 +177,7 @@ function fillTable(section, headers, rows) {
             const section = btn.dataset.section;
             const json = btn.dataset.json ? JSON.parse(decodeURIComponent(btn.dataset.json)) : null;
             try {
-                const fn = window[edit_${section}];
+                const fn = window[`edit_${section}`];
                 if (typeof fn === 'function') fn(json);
             } catch (err) {
                 console.error('edit handler error', err);
@@ -189,7 +190,7 @@ function fillTable(section, headers, rows) {
             const section = btn.dataset.section;
             const id = btn.dataset.id;
             try {
-                const fn = window[delete_${section}];
+                const fn = window[`delete_${section}`];
                 if (typeof fn === 'function') {
                     // call delete handler; if it expects id param, pass it
                     fn(id);
@@ -390,7 +391,7 @@ async function saveProducto() {
     };
     try {
         if (editId) {
-            await fetch(/api/productos/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/productos/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/productos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -406,7 +407,7 @@ async function edit_productos(data) { openProductoForm(data); }
 async function delete_productos(id) {
     if (!confirm('¿Eliminar producto?')) return;
     try {
-        const res = await fetch(/api/productos/${id}, { method: 'DELETE' });
+        const res = await fetch(`/api/productos/${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('producto', data.error || 'Error eliminando producto');
@@ -492,7 +493,7 @@ async function saveVenta() {
 
     // check cliente exists
     try {
-        const resp = await fetch(/api/clientes/${encodeURIComponent(documento)});
+        const resp = await fetch(`/api/clientes/${encodeURIComponent(documento)}`);
         if (resp.status === 404) {
             // prompt to create
             const create = confirm('Cliente no existe. ¿Deseas crearlo ahora?');
@@ -546,9 +547,9 @@ function addVentaRow(productId, cantidad) {
     // product select
     const tdProd = document.createElement('td');
     const sel = document.createElement('select');
-    sel.innerHTML = <option value="">-- seleccionar --</option>;
+    sel.innerHTML = `<option value="">-- seleccionar --</option>`;
     const prods = window.productosCache || [];
-    prods.forEach(p => sel.innerHTML += <option value="${p.identificacion}" data-precio="${p.precio}">${p.nombre} (${p.identificacion})</option>);
+    prods.forEach(p => sel.innerHTML += `<option value="${p.identificacion}" data-precio="${p.precio}">${p.nombre} (${p.identificacion})</option>`);
     if (productId) sel.value = productId;
     sel.addEventListener('change', () => {
         const precio = parseFloat(sel.selectedOptions[0].dataset.precio || '0');
@@ -620,7 +621,7 @@ async function edit_ventas(data) { showModalError('venta','Editar ventas no impl
 async function delete_ventas(id) {
     if (!confirm('¿Eliminar venta?')) return;
     try {
-        const res = await fetch(/api/ventas/${id}, { method: 'DELETE' });
+        const res = await fetch(`/api/ventas/${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('venta', data.error || 'Error eliminando venta');
@@ -637,7 +638,7 @@ async function delete_animales(id) {
     if (!confirm("¿Eliminar animal?")) return;
 
     try {
-        const res = await fetch(/api/animales/${id}, { method: "DELETE" });
+        const res = await fetch(`/api/animales/${id}`, { method: "DELETE" });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('animal', data.error || 'Error eliminando animal');
@@ -654,7 +655,7 @@ async function delete_cultivos(id) {
     if (!confirm("¿Eliminar cultivo?")) return;
 
     try {
-        const res = await fetch(/api/cultivos/${id}, { method: "DELETE" });
+        const res = await fetch(`/api/cultivos/${id}`, { method: "DELETE" });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('cultivo', data.error || 'Error eliminando cultivo');
@@ -700,7 +701,7 @@ async function saveCultivo() {
     };
     try {
         if (editId) {
-            await fetch(/api/cultivos/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/cultivos/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/cultivos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -740,7 +741,7 @@ async function saveAnimal() {
     };
     try {
         if (id) {
-            await fetch(/api/animales/${id}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/animales/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/animales', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -788,7 +789,7 @@ async function saveEmpleado() {
     };
     try {
         if (editId) {
-            await fetch(/api/empleados/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/empleados/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/empleados', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -817,19 +818,19 @@ async function delete_empleados(id) {
         const assignedCultivos = (cultList || []).filter(c => c.identificacion === id);
 
         const details = [];
-        if (assignedAnimals.length) assignedAnimals.forEach(a => details.push(Animal ID: ${a.id_animal}));
-        if (assignedMaquinas.length) assignedMaquinas.forEach(m => details.push(Maquinaria ID: ${m.id_maquinaria}));
-        if (assignedCultivos.length) assignedCultivos.forEach(c => details.push(Cultivo ID: ${c.id_cultivo}));
+        if (assignedAnimals.length) assignedAnimals.forEach(a => details.push(`Animal ID: ${a.id_animal}`));
+        if (assignedMaquinas.length) assignedMaquinas.forEach(m => details.push(`Maquinaria ID: ${m.id_maquinaria}`));
+        if (assignedCultivos.length) assignedCultivos.forEach(c => details.push(`Cultivo ID: ${c.id_cultivo}`));
 
-        const message = Se eliminará el empleado y se quitarán sus asignaciones. Los animales, cultivos y maquinarias permanecerán pero sin responsable. ¿Continuar?;
+        const message = `Se eliminará el empleado y se quitarán sus asignaciones. Los animales, cultivos y maquinarias permanecerán pero sin responsable. ¿Continuar?`;
 
         openDeleteConfirm(message, details, async () => {
             try {
-                const resp = await fetch(/api/empleados/${id}/cascade, { method: 'DELETE' });
+                const resp = await fetch(`/api/empleados/${id}/cascade`, { method: 'DELETE' });
                 const result = await resp.json();
                 if (!resp.ok || !(result && result.ok)) throw new Error(result.error || 'Error en borrado en cascada');
                 closeDeleteConfirm();
-                showModalSuccess('empleado', Empleado eliminado. Asignaciones removidas - animales: ${result.deleted_relations.animal}, maquinarias: ${result.deleted_relations.maquinaria}, cultivos: ${result.deleted_relations.cultivo});
+                showModalSuccess('empleado', `Empleado eliminado. Asignaciones removidas - animales: ${result.deleted_relations.animal}, maquinarias: ${result.deleted_relations.maquinaria}, cultivos: ${result.deleted_relations.cultivo}`);
                 setTimeout(() => { loadEmpleados(); }, 800);
             } catch (err) {
                 console.error(err);
@@ -876,7 +877,7 @@ function openAssignModal(section, targetId) {
     const titleEl = document.getElementById('assign-modal-target');
     const select = document.getElementById('assign-employee-select');
     const dateInp = document.getElementById('assign-date');
-    if (titleEl) titleEl.textContent = Asignar responsable para ${section} ID: ${targetId};
+    if (titleEl) titleEl.textContent = `Asignar responsable para ${section} ID: ${targetId}`;
     if (select) {
         select.innerHTML = '<option value="">-- seleccionar empleado --</option>';
         fetch('/api/empleados').then(r => r.json()).then(list => {
@@ -884,7 +885,7 @@ function openAssignModal(section, targetId) {
             (list || []).forEach(emp => {
                 const opt = document.createElement('option');
                 opt.value = emp.identificacion;
-                opt.textContent = ${emp.nombre} (${emp.identificacion});
+                opt.textContent = `${emp.nombre} (${emp.identificacion})`;
                 select.appendChild(opt);
             });
             // after loading employees, load existing assignments for this target
@@ -976,7 +977,7 @@ async function loadCurrentAssignments(section, targetId) {
             const li = document.createElement('li');
             const empId = it.identificacion;
             const empName = (window._employeesCache || []).find(e => e.identificacion === empId)?.nombre || empId;
-            li.textContent = ${empName} (${empId}) - ${it.asignacion_fecha || ''};
+            li.textContent = `${empName} (${empId}) - ${it.asignacion_fecha || ''}`;
             const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn danger-btn'; btn.style.marginLeft = '8px'; btn.textContent = 'Quitar';
             btn.addEventListener('click', async () => {
                 if (!confirm('Quitar asignación?')) return;
@@ -1037,7 +1038,7 @@ async function saveMaquinaria() {
     };
     try {
         if (editId) {
-            await fetch(/api/maquinaria/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/maquinaria/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/maquinaria', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -1053,7 +1054,7 @@ async function edit_maquinaria(data) { openMaquinariaForm(data); }
 async function delete_maquinaria(id) {
     if (!confirm('¿Eliminar maquinaria?')) return;
     try {
-        const res = await fetch(/api/maquinaria/${id}, { method: 'DELETE' });
+        const res = await fetch(`/api/maquinaria/${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('maquinaria', data.error || 'Error eliminando maquinaria');
@@ -1107,7 +1108,7 @@ async function saveCliente() {
 
     try {
         if (editId) {
-            await fetch(/api/clientes/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/clientes/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/clientes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -1142,7 +1143,7 @@ async function edit_clientes(data) { openClienteForm(data); }
 async function delete_clientes(id) {
     if (!confirm('¿Eliminar cliente?')) return;
     try {
-        const res = await fetch(/api/clientes/${id}, { method: 'DELETE' });
+        const res = await fetch(`/api/clientes/${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('cliente', data.error || 'Error eliminando cliente');
@@ -1184,7 +1185,7 @@ async function saveRecurso() {
 
     try {
         if (editId) {
-            await fetch(/api/recursos/${editId}, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            await fetch(`/api/recursos/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         } else {
             await fetch('/api/recursos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
@@ -1200,7 +1201,7 @@ async function edit_recursos(data) { openRecursoForm(data); }
 async function delete_recursos(id) {
     if (!confirm('¿Eliminar recurso?')) return;
     try {
-        const res = await fetch(/api/recursos/${id}, { method: 'DELETE' });
+        const res = await fetch(`/api/recursos/${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
             showModalError('recurso', data.error || 'Error eliminando recurso');
@@ -1212,3 +1213,4 @@ async function delete_recursos(id) {
         showModalError('recurso','Error eliminando recurso');
     }
 }
+
