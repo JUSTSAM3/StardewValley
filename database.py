@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2 import sql
+from psycopg2.extras import RealDictCursor
 import os
 
 DB_NAME = "stardew"
@@ -47,6 +48,36 @@ def get_connection():
         host=DB_HOST,
         port=DB_PORT
     )
+
+
+# Helpers para consultas desde la app
+def query_dict(sql_query, params=None, many=True):
+    conn = get_connection()
+    try:
+        with conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute(sql_query, params or ())
+                if cur.description:
+                    if many:
+                        return cur.fetchall()
+                    else:
+                        return cur.fetchone()
+                return None
+    finally:
+        conn.close()
+
+
+def execute(sql_query, params=None, fetchone=False):
+    conn = get_connection()
+    try:
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute(sql_query, params or ())
+                if fetchone:
+                    return cur.fetchone()
+                return None
+    finally:
+        conn.close()
 
 
 # Crea tablas a partir del schema.sql
