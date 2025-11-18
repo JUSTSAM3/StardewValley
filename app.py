@@ -5,7 +5,6 @@ from routes.auth import bp as auth_bp
 import os
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-# secret key for session handling (used by login/logout)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key')
 
 # Inicialización DB
@@ -33,5 +32,3 @@ def admin():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-
