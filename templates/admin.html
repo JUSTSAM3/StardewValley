@@ -34,6 +34,9 @@
         </nav>
 
 
+
+
+        
         <!-- SECCIONES DEL PANEL -->
         <section class="admin-sections">
 
@@ -45,264 +48,12 @@
             </section>
 
             <!-- ANIMALES -->
-<section id="section-animales" class="admin-section">
-    <h2>Gestión de Animales</h2>
-
-    <button class="btn-add" onclick="openAnimalForm()">➕ Agregar Animal</button>
-
-    <div class="section-content"></div>
-
-    <!-- Formulario modal -->
-    <div id="modal-animal" class="modal" role="dialog" aria-modal="true" aria-labelledby="animal-modal-title">
-            <div class="modal-content" tabindex="-1">
-                <h3 id="animal-modal-title">Nuevo Animal</h3>
-
-            <label>Nombre:</label>
-            <input id="animal-nombre">
-
-            <label>Especie:</label>
-            <input id="animal-especie">
-
-            <label>Raza:</label>
-            <input id="animal-raza">
-
-            <label>Sexo:</label>
-            <input id="animal-sexo">
-
-            <label>Estado:</label>
-            <input id="animal-estado">
-
-            <br><br>
-                <div id="animal-error" class="error-message-inline"></div>
-                <div class="modal-actions">
-                    <button onclick="saveAnimal()" class="btn-save">Guardar</button>
-                    <button onclick="closeAnimalForm()" class="btn-cancel">Cancelar</button>
-                </div>
-        </div>
-    </div>
-</section>
-
-<!-- MODAL EMPLEADO -->
-<div id="modal-empleado" class="modal" role="dialog" aria-modal="true" aria-labelledby="empleado-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="empleado-modal-title">Nuevo Empleado</h3>
-        <label>Identificación:</label>
-        <input id="empleado-identificacion">
-        <label>Nombre:</label>
-        <input id="empleado-nombre">
-        <label>Cargo:</label>
-        <input id="empleado-cargo">
-        <label>Fecha ingreso:</label>
-        <input id="empleado-fecha" placeholder="YYYY-MM-DD">
-        <label>Sueldo:</label>
-        <input id="empleado-sueldo">
-        <div id="empleado-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button onclick="saveEmpleado()" class="btn-save">Guardar</button>
-            <button onclick="closeEmpleadoForm()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL MAQUINARIA -->
-<div id="modal-maquinaria" class="modal" role="dialog" aria-modal="true" aria-labelledby="maquinaria-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="maquinaria-modal-title">Nueva Maquinaria</h3>
-        <label>Nombre:</label>
-        <input id="maquinaria-nombre">
-        <label>Tipo:</label>
-        <input id="maquinaria-tipo">
-        <label>Modelo:</label>
-        <input id="maquinaria-modelo">
-        <label>Estado:</label>
-        <select id="maquinaria-estado">
-            <option>DISPONIBLE</option>
-            <option>EN_USO</option>
-            <option>MANTENIMIENTO</option>
-        </select>
-        <div id="maquinaria-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button onclick="saveMaquinaria()" class="btn-save">Guardar</button>
-            <button onclick="closeMaquinariaForm()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL PRODUCTO -->
-<div id="modal-producto" class="modal" role="dialog" aria-modal="true" aria-labelledby="producto-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="producto-modal-title">Nuevo Producto</h3>
-        <label>Identificación:</label>
-        <input id="producto-identificacion">
-        <label>Nombre:</label>
-        <input id="producto-nombre">
-        <label>Tipo:</label>
-        <input id="producto-tipo">
-        <label>Precio:</label>
-        <input id="producto-precio">
-        <div id="producto-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button onclick="saveProducto()" class="btn-save">Guardar</button>
-            <button onclick="closeProductoForm()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL CLIENTE -->
-<div id="modal-cliente" class="modal" role="dialog" aria-modal="true" aria-labelledby="cliente-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="cliente-modal-title">Nuevo Cliente</h3>
-        <label>Documento:</label>
-        <input id="cliente-documento">
-        <label>Nombre:</label>
-        <input id="cliente-nombre">
-        <label>Dirección:</label>
-        <input id="cliente-direccion">
-        <label>Teléfono:</label>
-        <input id="cliente-telefono">
-        <label>Email:</label>
-        <input id="cliente-email">
-        <div id="cliente-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button onclick="saveCliente()" class="btn-save">Guardar</button>
-            <button onclick="closeClienteForm()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL RECURSO -->
-<div id="modal-recurso" class="modal" role="dialog" aria-modal="true" aria-labelledby="recurso-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="recurso-modal-title">Nuevo Recurso</h3>
-        <label>Nombre:</label>
-        <input id="recurso-nombre">
-        <label>Tipo recurso:</label>
-        <input id="recurso-tipo">
-        <label>Stock:</label>
-        <input id="recurso-stock" type="number" min="0">
-        <div id="recurso-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button onclick="saveRecurso()" class="btn-save">Guardar</button>
-            <button onclick="closeRecursoForm()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL VENTA (simple) -->
-<div id="modal-venta" class="modal" role="dialog" aria-modal="true" aria-labelledby="venta-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="venta-modal-title">Nueva Venta</h3>
-        <label>Documento Cliente:</label>
-        <div style="display:flex; gap:8px; align-items:center;">
-            <input id="venta-cliente" list="clientes-list" placeholder="Documento cliente">
-            <datalist id="clientes-list"></datalist>
-            <button type="button" onclick="openClienteFromVenta()" class="btn">Crear cliente</button>
-        </div>
-        <div style="margin-top:8px; margin-bottom:8px;">
-            <button id="venta-add-row" class="btn" type="button">Agregar producto</button>
-        </div>
-
-        <div id="venta-items-container">
-            <table class="venta-table" id="venta-table">
-                <thead>
-                    <tr><th>Producto</th><th>Cantidad</th><th>Precio unit.</th><th>Subtotal</th><th></th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div style="margin-top:12px; text-align:right;">
-            <div>Subtotal: $<span id="venta-subtotal">0.00</span></div>
-            <div style="font-weight:bold; margin-top:6px;">Total: $<span id="venta-total">0.00</span></div>
-        </div>
-
-        <div id="venta-error" class="error-message-inline"></div>
-
-        <br>
-        <button onclick="saveVenta()" class="btn-save">Guardar</button>
-        <button onclick="closeVentaForm()" class="btn-cancel">Cancelar</button>
-    </div>
-</div>
-
-    <!-- MODAL CONFIRMAR LOGOUT -->
-    <div id="modal-logout-confirm" class="modal" role="dialog" aria-modal="true" aria-labelledby="logout-modal-title" style="display:none;">
-        <div class="modal-content" tabindex="-1">
-            <h3 id="logout-modal-title">Confirmar cierre de sesión</h3>
-            <p>¿Estás seguro que deseas cerrar sesión?</p>
-            <div id="logout-error" class="error-message-inline"></div>
-            <div class="modal-actions">
-                <button onclick="confirmLogout()" class="btn-danger">Sí, cerrar sesión</button>
-                <button onclick="cancelLogout()" class="btn-cancel">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-<!-- MODAL CULTIVO -->
-<div id="modal-cultivo" class="modal" role="dialog" aria-modal="true" aria-labelledby="cultivo-modal-title">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="cultivo-modal-title">Nuevo Cultivo</h3>
-        <label>Nombre:</label>
-        <input id="cultivo-nombre">
-        <label>Tipo:</label>
-        <input id="cultivo-tipo">
-        <label>Época:</label>
-        <input id="cultivo-epoca">
-        <label>Estado:</label>
-        <select id="cultivo-estado">
-            <option>SEMILLA</option>
-            <option>CRECIMIENTO</option>
-            <option>COSECHADO</option>
-        </select>
-        <label>Fecha siembra:</label>
-        <input id="cultivo-fecha" placeholder="YYYY-MM-DD">
-        <br><br>
-        <button onclick="saveCultivo()" class="btn-save">Guardar</button>
-        <button onclick="closeCultivoForm()" class="btn-cancel">Cancelar</button>
-    </div>
-</div>
-
-<!-- MODAL CONFIRMAR ELIMINACIÓN (GENÉRICO) -->
-<div id="modal-delete-confirm" class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title" style="display:none;">
-    <div class="modal-content" tabindex="-1">
-        <h3 id="delete-modal-title">Confirmar eliminación</h3>
-        <div id="delete-modal-body">
-            <p id="delete-modal-message">¿Deseas eliminar este elemento?</p>
-            <ul id="delete-modal-details" style="max-height:200px; overflow:auto; padding-left:1rem;"></ul>
-        </div>
-        <div id="delete-error" class="error-message-inline"></div>
-        <div class="modal-actions">
-            <button id="delete-confirm-btn" class="btn-danger">Sí, eliminar</button>
-            <button onclick="cancelDelete()" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-        <!-- MODAL ASIGNAR RESPONSABLE (GENÉRICO) -->
-        <div id="modal-assign" class="modal" role="dialog" aria-modal="true" aria-labelledby="assign-modal-title" style="display:none;">
-            <div class="modal-content" tabindex="-1">
-                <h3 id="assign-modal-title">Asignar Responsable</h3>
-                <p id="assign-modal-target"></p>
-                <label>Empleado:</label>
-                <select id="assign-employee-select"></select>
-                <label>Fecha asignación:</label>
-                <input id="assign-date" placeholder="YYYY-MM-DD">
-                <div id="assign-error" class="error-message-inline"></div>
-                <hr>
-                <div id="assign-current">
-                    <h4>Asignaciones actuales</h4>
-                    <ul id="assign-current-list" style="max-height:160px; overflow:auto; padding-left:1rem;"></ul>
-                </div>
-                <div class="modal-actions">
-                    <button onclick="saveAssign()" class="btn-save">Asignar</button>
-                    <button onclick="closeAssignModal()" class="btn-cancel">Cancelar</button>
-                </div>
-            </div>
-        </div>
-
-<style>
-</style>
-</style>
-
+            <section id="section-animales" class="card admin-section">
+                <h2>Animales</h2>
+                <p>Listado de animales y sus datos.</p>
+                <button class="btn-add" onclick="openAnimalForm()">➕ Agregar Animal</button>
+                <div class="section-content"></div>
+            </section>
 
             <!-- CULTIVOS -->
             <section id="section-cultivos" class="card admin-section">
@@ -359,11 +110,322 @@
                 <button class="btn-add" onclick="openVentaForm()">➕ Nueva Venta</button>
                 <div class="section-content"></div>
             </section>
-        </section>
+
+        </section> <!-- Cierra admin-sections -->
+
+        <!-- ==================== MODALES ==================== -->
+
+        <!-- MODAL ANIMAL -->
+        <div id="modal-animal" class="modal" role="dialog" aria-modal="true" aria-labelledby="animal-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="animal-modal-title">Nuevo Animal</h3>
+
+                <label>Nombre:</label>
+                <input id="animal-nombre">
+
+                <label>Especie:</label>
+                <input id="animal-especie">
+
+                <label>Raza:</label>
+                <input id="animal-raza">
+
+                <label>Sexo:</label>
+                <input id="animal-sexo">
+
+                <label>Estado:</label>
+                <input id="animal-estado">
+
+                <div id="animal-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveAnimal()" class="btn-save">Guardar</button>
+                    <button onclick="closeAnimalForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL EMPLEADO -->
+        <div id="modal-empleado" class="modal" role="dialog" aria-modal="true" aria-labelledby="empleado-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="empleado-modal-title">Nuevo Empleado</h3>
+
+                <label>Identificación:</label>
+                <input id="empleado-identificacion">
+
+                <label>Nombre:</label>
+                <input id="empleado-nombre">
+
+                <label>Cargo:</label>
+                <input id="empleado-cargo">
+
+                <label>Fecha ingreso:</label>
+                <input id="empleado-fecha" placeholder="YYYY-MM-DD">
+
+                <label>Sueldo:</label>
+                <input id="empleado-sueldo">
+
+                <div id="empleado-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveEmpleado()" class="btn-save">Guardar</button>
+                    <button onclick="closeEmpleadoForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL MAQUINARIA -->
+        <div id="modal-maquinaria" class="modal" role="dialog" aria-modal="true" aria-labelledby="maquinaria-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="maquinaria-modal-title">Nueva Maquinaria</h3>
+
+                <label>Nombre:</label>
+                <input id="maquinaria-nombre">
+
+                <label>Tipo:</label>
+                <input id="maquinaria-tipo">
+
+                <label>Modelo:</label>
+                <input id="maquinaria-modelo">
+
+                <label>Estado:</label>
+                <select id="maquinaria-estado">
+                    <option>DISPONIBLE</option>
+                    <option>EN_USO</option>
+                    <option>MANTENIMIENTO</option>
+                </select>
+
+                <div id="maquinaria-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveMaquinaria()" class="btn-save">Guardar</button>
+                    <button onclick="closeMaquinariaForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL PRODUCTO -->
+        <div id="modal-producto" class="modal" role="dialog" aria-modal="true" aria-labelledby="producto-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="producto-modal-title">Nuevo Producto</h3>
+
+                <label>Identificación:</label>
+                <input id="producto-identificacion">
+
+                <label>Nombre:</label>
+                <input id="producto-nombre">
+
+                <label>Tipo:</label>
+                <input id="producto-tipo">
+
+                <label>Precio:</label>
+                <input id="producto-precio">
+
+                <div id="producto-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveProducto()" class="btn-save">Guardar</button>
+                    <button onclick="closeProductoForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL CLIENTE -->
+        <div id="modal-cliente" class="modal" role="dialog" aria-modal="true" aria-labelledby="cliente-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="cliente-modal-title">Nuevo Cliente</h3>
+
+                <label>Documento:</label>
+                <input id="cliente-documento">
+
+                <label>Nombre:</label>
+                <input id="cliente-nombre">
+
+                <label>Dirección:</label>
+                <input id="cliente-direccion">
+
+                <label>Teléfono:</label>
+                <input id="cliente-telefono">
+
+                <label>Email:</label>
+                <input id="cliente-email">
+
+                <div id="cliente-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveCliente()" class="btn-save">Guardar</button>
+                    <button onclick="closeClienteForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL RECURSO -->
+        <div id="modal-recurso" class="modal" role="dialog" aria-modal="true" aria-labelledby="recurso-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="recurso-modal-title">Nuevo Recurso</h3>
+
+                <label>Nombre:</label>
+                <input id="recurso-nombre">
+
+                <label>Tipo recurso:</label>
+                <input id="recurso-tipo">
+
+                <label>Stock:</label>
+                <input id="recurso-stock" type="number" min="0">
+
+                <div id="recurso-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveRecurso()" class="btn-save">Guardar</button>
+                    <button onclick="closeRecursoForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL VENTA -->
+        <div id="modal-venta" class="modal" role="dialog" aria-modal="true" aria-labelledby="venta-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="venta-modal-title">Nueva Venta</h3>
+
+                <label>Documento Cliente:</label>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <input id="venta-cliente" list="clientes-list" placeholder="Documento cliente">
+                    <datalist id="clientes-list"></datalist>
+                    <button type="button" onclick="openClienteFromVenta()" class="btn">Crear cliente</button>
+                </div>
+
+                <div style="margin:8px 0;">
+                    <button id="venta-add-row" class="btn" type="button">Agregar producto</button>
+                </div>
+
+                <div id="venta-items-container">
+                    <table class="venta-table" id="venta-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio unit.</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top:12px; text-align:right;">
+                    <div>Subtotal: $<span id="venta-subtotal">0.00</span></div>
+                    <div style="font-weight:bold; margin-top:6px;">Total: $<span id="venta-total">0.00</span></div>
+                </div>
+
+                <div id="venta-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="saveVenta()" class="btn-save">Guardar</button>
+                    <button onclick="closeVentaForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL CONFIRMAR LOGOUT -->
+        <div id="modal-logout-confirm" class="modal" role="dialog" aria-modal="true" aria-labelledby="logout-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="logout-modal-title">Confirmar cierre de sesión</h3>
+                <p>¿Estás seguro que deseas cerrar sesión?</p>
+
+                <div id="logout-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button onclick="confirmLogout()" class="btn-danger">Sí, cerrar sesión</button>
+                    <button onclick="cancelLogout()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL CULTIVO -->
+        <div id="modal-cultivo" class="modal" role="dialog" aria-modal="true" aria-labelledby="cultivo-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="cultivo-modal-title">Nuevo Cultivo</h3>
+
+                <label>Nombre:</label>
+                <input id="cultivo-nombre">
+
+                <label>Tipo:</label>
+                <input id="cultivo-tipo">
+
+                <label>Época:</label>
+                <input id="cultivo-epoca">
+
+                <label>Estado:</label>
+                <select id="cultivo-estado">
+                    <option>SEMILLA</option>
+                    <option>CRECIMIENTO</option>
+                    <option>COSECHADO</option>
+                </select>
+
+                <label>Fecha siembra:</label>
+                <input id="cultivo-fecha" placeholder="YYYY-MM-DD">
+
+                <div class="modal-actions">
+                    <button onclick="saveCultivo()" class="btn-save">Guardar</button>
+                    <button onclick="closeCultivoForm()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL ELIMINACIÓN -->
+        <div id="modal-delete-confirm" class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="delete-modal-title">Confirmar eliminación</h3>
+
+                <div id="delete-modal-body">
+                    <p id="delete-modal-message">¿Deseas eliminar este elemento?</p>
+                    <ul id="delete-modal-details" style="max-height:200px; overflow:auto; padding-left:1rem;"></ul>
+                </div>
+
+                <div id="delete-error" class="error-message-inline"></div>
+
+                <div class="modal-actions">
+                    <button id="delete-confirm-btn" class="btn-danger">Sí, eliminar</button>
+                    <button onclick="cancelDelete()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL ASIGNAR RESPONSABLE -->
+        <div id="modal-assign" class="modal" role="dialog" aria-modal="true" aria-labelledby="assign-modal-title">
+            <div class="modal-content" tabindex="-1">
+                <h3 id="assign-modal-title">Asignar Responsable</h3>
+
+                <p id="assign-modal-target"></p>
+
+                <label>Empleado:</label>
+                <select id="assign-employee-select"></select>
+
+                <label>Fecha asignación:</label>
+                <input id="assign-date" placeholder="YYYY-MM-DD">
+
+                <div id="assign-error" class="error-message-inline"></div>
+
+                <hr>
+
+                <div id="assign-current">
+                    <h4>Asignaciones actuales</h4>
+                    <ul id="assign-current-list" style="max-height:160px; overflow:auto; padding-left:1rem;"></ul>
+                </div>
+
+                <div class="modal-actions">
+                    <button onclick="saveAssign()" class="btn-save">Asignar</button>
+                    <button onclick="closeAssignModal()" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <style></style>
 
     </main>
 
     <script src="../static/admin.js"></script>
+
 </body>
 
 </html>
