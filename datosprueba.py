@@ -11,9 +11,6 @@ def insert_initial_data():
         
         print("[INFO] Iniciando inserción de datos...")
         
-        # =========================================
-        # EMPLEADOS
-        # =========================================
         print("→ Insertando empleados...")
         empleados = [
             ('100', 'Juan Pérez', 'Administrador', '2020-01-15', 2500000),
@@ -26,9 +23,6 @@ def insert_initial_data():
             empleados
         )
         
-        # =========================================
-        # MAQUINARIA
-        # =========================================
         print("→ Insertando maquinaria...")
         maquinaria = [
             ('Tractor JD 5080', 'Tractor', 'JD-5080', 'DISPONIBLE'),
@@ -36,29 +30,27 @@ def insert_initial_data():
             ('Cosechadora Serie X', 'Cosechadora', 'CX-50', 'MANTENIMIENTO'),
             ('Tractor Case IH', 'Tractor', 'C-90', 'DISPONIBLE')
         ]
-        cur.executemany(
-            "INSERT INTO maquinaria (nombre, tipo, modelo, estado) VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING",
-            maquinaria
-        )
         
-        # =========================================
-        # EMPLEADO - MAQUINARIA (M:N)
-        # =========================================
+        maquinaria_ids = []
+        for maq in maquinaria:
+            cur.execute(
+                "INSERT INTO maquinaria (nombre, tipo, modelo, estado) VALUES (%s, %s, %s, %s) RETURNING id",
+                maq
+            )
+            maquinaria_ids.append(cur.fetchone()[0])
+        
         print("→ Insertando relación empleado-maquinaria...")
         empleado_maquinaria = [
-            ('100', 1, '2024-01-10'),
-            ('101', 2, '2024-01-12'),
-            ('102', 3, '2024-02-01'),
-            ('103', 1, '2024-02-15')
+            ('100', maquinaria_ids[0], '2024-01-10'),
+            ('101', maquinaria_ids[1], '2024-01-12'),
+            ('102', maquinaria_ids[2], '2024-02-01'),
+            ('103', maquinaria_ids[0], '2024-02-15')
         ]
         cur.executemany(
             "INSERT INTO empleado_maquinaria VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
             empleado_maquinaria
         )
         
-        # =========================================
-        # ANIMALES
-        # =========================================
         print("→ Insertando animales...")
         animales = [
             ('Lola', 'Vaca', 'Holstein', 'HEMBRA', 'VIVO'),
@@ -67,20 +59,24 @@ def insert_initial_data():
             ('ToroMax', 'Toro', 'Brahman', 'MACHO', 'VIVO'),
             ('Copito', 'Cabra', 'Saanen', 'HEMBRA', 'MUERTO')
         ]
-        cur.executemany(
-            "INSERT INTO animal (nombre, especie, raza, sexo, estado) VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
-            animales
-        )
+        
+        animal_ids = []
+        for animal in animales:
+            cur.execute(
+                "INSERT INTO animal (nombre, especie, raza, sexo, estado) VALUES (%s, %s, %s, %s, %s) RETURNING id",
+                animal
+            )
+            animal_ids.append(cur.fetchone()[0])
         
         # =========================================
         # EMPLEADO - ANIMAL (M:N)
         # =========================================
         print("→ Insertando relación empleado-animal...")
         empleado_animal = [
-            ('101', 1, '2024-01-02'),
-            ('101', 2, '2024-01-03'),
-            ('103', 3, '2024-02-10'),
-            ('100', 4, '2024-03-01')
+            ('101', animal_ids[0], '2024-01-02'),
+            ('101', animal_ids[1], '2024-01-03'),
+            ('103', animal_ids[2], '2024-02-10'),
+            ('100', animal_ids[3], '2024-03-01')
         ]
         cur.executemany(
             "INSERT INTO empleado_animal VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
@@ -88,7 +84,7 @@ def insert_initial_data():
         )
         
         # =========================================
-        # CULTIVOS
+        # CULTIVOS - OBTENER IDS
         # =========================================
         print("→ Insertando cultivos...")
         cultivos = [
@@ -97,20 +93,24 @@ def insert_initial_data():
             ('Tomate Cherry', 'Hortaliza', 'Verano', 'CRECIMIENTO', '2024-01-10'),
             ('Trigo Duro', 'Grano', 'Primavera', 'COSECHADO', '2023-12-20')
         ]
-        cur.executemany(
-            "INSERT INTO cultivo (nombre, tipo, epoca, estado, fecha_siembra) VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
-            cultivos
-        )
+        
+        cultivo_ids = []
+        for cultivo in cultivos:
+            cur.execute(
+                "INSERT INTO cultivo (nombre, tipo, epoca, estado, fecha_siembra) VALUES (%s, %s, %s, %s, %s) RETURNING id",
+                cultivo
+            )
+            cultivo_ids.append(cur.fetchone()[0])
         
         # =========================================
         # EMPLEADO - CULTIVO (M:N)
         # =========================================
         print("→ Insertando relación empleado-cultivo...")
         empleado_cultivo = [
-            ('102', 1, '2024-02-01'),
-            ('102', 2, '2024-02-20'),
-            ('103', 3, '2024-01-15'),
-            ('100', 4, '2023-12-21')
+            ('102', cultivo_ids[0], '2024-02-01'),
+            ('102', cultivo_ids[1], '2024-02-20'),
+            ('103', cultivo_ids[2], '2024-01-15'),
+            ('100', cultivo_ids[3], '2023-12-21')
         ]
         cur.executemany(
             "INSERT INTO empleado_cultivo VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
@@ -118,7 +118,7 @@ def insert_initial_data():
         )
         
         # =========================================
-        # RECURSOS
+        # RECURSOS - OBTENER IDS
         # =========================================
         print("→ Insertando recursos...")
         recursos = [
@@ -127,19 +127,23 @@ def insert_initial_data():
             ('Alimento Porcino', 'Comida', 22),
             ('Insecticida Ultra', 'Químico', 8)
         ]
-        cur.executemany(
-            "INSERT INTO recursos (nombre, tipo_recurso, stock) VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
-            recursos
-        )
+        
+        recurso_ids = []
+        for recurso in recursos:
+            cur.execute(
+                "INSERT INTO recursos (nombre, tipo_recurso, stock) VALUES (%s, %s, %s) RETURNING id",
+                recurso
+            )
+            recurso_ids.append(cur.fetchone()[0])
         
         # =========================================
         # CONSUMO DE RECURSOS - ANIMALES
         # =========================================
         print("→ Insertando consumo de recursos por animales...")
         consumo_animal = [
-            (1, 1, 'Alimentación', 5, 'Consumo diario', '2024-03-01'),
-            (2, 3, 'Alimentación', 3, 'Pendiente aumentar ración', '2024-03-02'),
-            (4, 1, 'Mantenimiento', 4, 'Preparación para reproducción', '2024-03-04')
+            (animal_ids[0], recurso_ids[0], 'Alimentación', 5, 'Consumo diario', '2024-03-01'),
+            (animal_ids[1], recurso_ids[2], 'Alimentación', 3, 'Pendiente aumentar ración', '2024-03-02'),
+            (animal_ids[3], recurso_ids[0], 'Mantenimiento', 4, 'Preparación para reproducción', '2024-03-04')
         ]
         cur.executemany(
             "INSERT INTO consumo_animal (id_animal, id_recurso, destino, cantidad, observacion, fecha) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
@@ -151,9 +155,9 @@ def insert_initial_data():
         # =========================================
         print("→ Insertando consumo de recursos por cultivos...")
         consumo_cultivo = [
-            (1, 2, 'Fertilización', 10, 'Inicio de temporada', '2024-02-25'),
-            (3, 4, 'Control de plagas', 2, 'Aplicación moderada', '2024-03-03'),
-            (2, 2, 'Preparación de suelo', 4, 'Primera aplicación', '2024-03-05')
+            (cultivo_ids[0], recurso_ids[1], 'Fertilización', 10, 'Inicio de temporada', '2024-02-25'),
+            (cultivo_ids[2], recurso_ids[3], 'Control de plagas', 2, 'Aplicación moderada', '2024-03-03'),
+            (cultivo_ids[1], recurso_ids[1], 'Preparación de suelo', 4, 'Primera aplicación', '2024-03-05')
         ]
         cur.executemany(
             "INSERT INTO consumo_cultivo (id_cultivo, id_recurso, destino, cantidad, observacion, fecha) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
@@ -181,9 +185,9 @@ def insert_initial_data():
         # =========================================
         print("→ Insertando productos generados por animales...")
         genera_producto_animal = [
-            (1, 'PR01', 15, '2024-03-01'),
-            (3, 'PR03', 24, '2024-03-02'),
-            (5, 'PR04', 3, '2024-03-05')
+            (animal_ids[0], 'PR01', 15, '2024-03-01'),
+            (animal_ids[2], 'PR03', 24, '2024-03-02'),
+            (animal_ids[4], 'PR04', 3, '2024-03-05')
         ]
         cur.executemany(
             "INSERT INTO genera_producto_animal (id_animal, identificacion_producto, cantidad, fecha) VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING",
@@ -195,8 +199,8 @@ def insert_initial_data():
         # =========================================
         print("→ Insertando productos generados por cultivos...")
         genera_producto_cultivo = [
-            (1, 'PR05', 40, '2024-03-01'),
-            (4, 'PR05', 70, '2024-01-10')
+            (cultivo_ids[0], 'PR05', 40, '2024-03-01'),
+            (cultivo_ids[3], 'PR05', 70, '2024-01-10')
         ]
         cur.executemany(
             "INSERT INTO genera_producto_cultivo (id_cultivo, identificacion_producto, cantidad, fecha) VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING",
@@ -218,7 +222,7 @@ def insert_initial_data():
         )
         
         # =========================================
-        # VENTAS
+        # VENTAS - OBTENER IDS
         # =========================================
         print("→ Insertando ventas...")
         ventas = [
@@ -226,21 +230,25 @@ def insert_initial_data():
             ('CC02', 45000, '2024-03-12'),
             ('CC03', 120000, '2024-03-15')
         ]
-        cur.executemany(
-            "INSERT INTO venta (documento_cliente, total, fecha) VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
-            ventas
-        )
+        
+        venta_ids = []
+        for venta in ventas:
+            cur.execute(
+                "INSERT INTO venta (documento_cliente, total, fecha) VALUES (%s, %s, %s) RETURNING id",
+                venta
+            )
+            venta_ids.append(cur.fetchone()[0])
         
         # =========================================
         # DETALLE DE VENTA
         # =========================================
         print("→ Insertando detalles de venta...")
         venta_detalles = [
-            (1, 'PR01', 10, 3000),
-            (2, 'PR02', 2, 18000),
-            (2, 'PR03', 30, 500),
-            (3, 'PR05', 25, 3200),
-            (3, 'PR01', 15, 3000)
+            (venta_ids[0], 'PR01', 10, 3000),
+            (venta_ids[1], 'PR02', 2, 18000),
+            (venta_ids[1], 'PR03', 30, 500),
+            (venta_ids[2], 'PR05', 25, 3200),
+            (venta_ids[2], 'PR01', 15, 3000)
         ]
         cur.executemany(
             "INSERT INTO venta_detalle (id_venta, identificacion_producto, cantidad, precio_unit) VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING",
