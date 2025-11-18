@@ -407,9 +407,15 @@ async function edit_productos(data) { openProductoForm(data); }
 async function delete_productos(id) {
     if (!confirm('¿Eliminar producto?')) return;
     try {
-        await fetch(`/api/productos/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/productos/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('producto', data.error || 'Error eliminando producto');
+            return;
+        }
         loadProductos();
     } catch (e) {
+        console.error(e);
         showModalError('producto','Error eliminando producto');
     }
 }
@@ -610,9 +616,15 @@ async function edit_ventas(data) { showModalError('venta','Editar ventas no impl
 async function delete_ventas(id) {
     if (!confirm('¿Eliminar venta?')) return;
     try {
-        await fetch(`/api/ventas/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/ventas/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('venta', data.error || 'Error eliminando venta');
+            return;
+        }
         loadVentas();
     } catch (e) {
+        console.error(e);
         showModalError('venta','Error eliminando venta');
     }
 }
@@ -620,15 +632,35 @@ async function delete_ventas(id) {
 async function delete_animales(id) {
     if (!confirm("¿Eliminar animal?")) return;
 
-    await fetch(`/api/animales/${id}`, { method: "DELETE" });
-    loadAnimales();
+    try {
+        const res = await fetch(`/api/animales/${id}`, { method: "DELETE" });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('animal', data.error || 'Error eliminando animal');
+            return;
+        }
+        loadAnimales();
+    } catch (e) {
+        console.error(e);
+        showModalError('animal', 'Error eliminando animal');
+    }
 }
 
 async function delete_cultivos(id) {
     if (!confirm("¿Eliminar cultivo?")) return;
 
-    await fetch(`/api/cultivos/${id}`, { method: "DELETE" });
-    loadCultivos();
+    try {
+        const res = await fetch(`/api/cultivos/${id}`, { method: "DELETE" });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('cultivo', data.error || 'Error eliminando cultivo');
+            return;
+        }
+        loadCultivos();
+    } catch (e) {
+        console.error(e);
+        showModalError('cultivo', 'Error eliminando cultivo');
+    }
 }
 
 async function edit_cultivos(data) {
@@ -1017,9 +1049,15 @@ async function edit_maquinaria(data) { openMaquinariaForm(data); }
 async function delete_maquinaria(id) {
     if (!confirm('¿Eliminar maquinaria?')) return;
     try {
-        await fetch(`/api/maquinaria/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/maquinaria/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('maquinaria', data.error || 'Error eliminando maquinaria');
+            return;
+        }
         loadMaquinaria();
     } catch (e) {
+        console.error(e);
         showModalError('maquinaria','Error eliminando maquinaria');
     }
 }
@@ -1076,9 +1114,15 @@ async function edit_clientes(data) { openClienteForm(data); }
 async function delete_clientes(id) {
     if (!confirm('¿Eliminar cliente?')) return;
     try {
-        await fetch(`/api/clientes/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/clientes/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('cliente', data.error || 'Error eliminando cliente');
+            return;
+        }
         loadClientes();
     } catch (e) {
+        console.error(e);
         showModalError('cliente','Error eliminando cliente');
     }
 }
@@ -1128,9 +1172,15 @@ async function edit_recursos(data) { openRecursoForm(data); }
 async function delete_recursos(id) {
     if (!confirm('¿Eliminar recurso?')) return;
     try {
-        await fetch(`/api/recursos/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/recursos/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+            showModalError('recurso', data.error || 'Error eliminando recurso');
+            return;
+        }
         loadRecursos();
     } catch (e) {
+        console.error(e);
         showModalError('recurso','Error eliminando recurso');
     }
 }

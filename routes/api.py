@@ -98,11 +98,19 @@ def update_maquinaria(id):
 
 @bp.route('/api/maquinaria/<int:id>', methods=['DELETE'])
 def delete_maquinaria(id):
+    conn = get_connection()
     try:
-        execute("DELETE FROM maquinaria WHERE id=%s", (id,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM empleado_maquinaria WHERE id_maquinaria=%s", (id,))
+                # Then delete the maquinaria
+                cur.execute("DELETE FROM maquinaria WHERE id=%s", (id,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # ANIMAL
 @bp.route('/api/animales', methods=['GET'])
@@ -135,11 +143,21 @@ def update_animal(id):
 
 @bp.route('/api/animales/<int:id>', methods=['DELETE'])
 def delete_animal(id):
+    conn = get_connection()
     try:
-        execute("DELETE FROM animal WHERE id=%s", (id,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM empleado_animal WHERE id_animal=%s", (id,))
+                cur.execute("DELETE FROM consumo_animal WHERE id_animal=%s", (id,))
+                cur.execute("DELETE FROM genera_producto_animal WHERE id_animal=%s", (id,))
+                # Then delete the animal
+                cur.execute("DELETE FROM animal WHERE id=%s", (id,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # CULTIVO
 @bp.route('/api/cultivos', methods=['GET'])
@@ -172,11 +190,21 @@ def update_cultivo(id):
 
 @bp.route('/api/cultivos/<int:id>', methods=['DELETE'])
 def delete_cultivo(id):
+    conn = get_connection()
     try:
-        execute("DELETE FROM cultivo WHERE id=%s", (id,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM empleado_cultivo WHERE id_cultivo=%s", (id,))
+                cur.execute("DELETE FROM consumo_cultivo WHERE id_cultivo=%s", (id,))
+                cur.execute("DELETE FROM genera_producto_cultivo WHERE id_cultivo=%s", (id,))
+                # Then delete the cultivo
+                cur.execute("DELETE FROM cultivo WHERE id=%s", (id,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # RECURSOS
 @bp.route('/api/recursos', methods=['GET'])
@@ -209,11 +237,20 @@ def update_recurso(id):
 
 @bp.route('/api/recursos/<int:id>', methods=['DELETE'])
 def delete_recurso(id):
+    conn = get_connection()
     try:
-        execute("DELETE FROM recursos WHERE id=%s", (id,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM consumo_animal WHERE id_recurso=%s", (id,))
+                cur.execute("DELETE FROM consumo_cultivo WHERE id_recurso=%s", (id,))
+                # Then delete the recurso
+                cur.execute("DELETE FROM recursos WHERE id=%s", (id,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # PRODUCTO
 @bp.route('/api/productos', methods=['GET'])
@@ -240,11 +277,21 @@ def update_producto(identificacion):
 
 @bp.route('/api/productos/<identificacion>', methods=['DELETE'])
 def delete_producto(identificacion):
+    conn = get_connection()
     try:
-        execute("DELETE FROM producto WHERE identificacion=%s", (identificacion,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM venta_detalle WHERE identificacion_producto=%s", (identificacion,))
+                cur.execute("DELETE FROM genera_producto_animal WHERE identificacion_producto=%s", (identificacion,))
+                cur.execute("DELETE FROM genera_producto_cultivo WHERE identificacion_producto=%s", (identificacion,))
+                # Then delete the producto
+                cur.execute("DELETE FROM producto WHERE identificacion=%s", (identificacion,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # CLIENTE
 @bp.route('/api/clientes', methods=['GET'])
@@ -279,11 +326,19 @@ def update_cliente(documento):
 
 @bp.route('/api/clientes/<documento>', methods=['DELETE'])
 def delete_cliente(documento):
+    conn = get_connection()
     try:
-        execute("DELETE FROM cliente WHERE documento=%s", (documento,))
+        with conn:
+            with conn.cursor() as cur:
+                # Delete dependencies first
+                cur.execute("DELETE FROM venta WHERE documento_cliente=%s", (documento,))
+                # Then delete the cliente
+                cur.execute("DELETE FROM cliente WHERE documento=%s", (documento,))
         return jsonify({'ok': True})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 400
+    finally:
+        conn.close()
 
 # VENTAS
 @bp.route('/api/ventas', methods=['GET'])
